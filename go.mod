@@ -1,4 +1,4 @@
-module rpi-cluster-manager
+module github.com/ankur4u007/rpi-cluster-manager/infrastructure/service
 
 go 1.19
 

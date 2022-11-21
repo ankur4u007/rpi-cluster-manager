@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"rpi-cluster-manager/infrastructure/service"
+	"github.com/ankur4u007/rpi-cluster-manager/infrastructure/service"
 )
 
 func main() {
