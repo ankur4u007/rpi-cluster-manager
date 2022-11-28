@@ -7,8 +7,8 @@ This tools assumes that you will be setting up raspberry pi(rpi hereon) to run y
 
 It has 4 parts:
 
-- `Installer`: helps you install various tools using `sudo apt-get` commnad.
-- `Scripter`: Runs all scripts present in `/scripts` directory in alphabetical order.
+- `Installer`: helps you install various tools using `sudo apt-get install` commnad.
+- `Scripter`: Runs all scripts present in `configs/scripts` directory in order lis
 - `Configurer`: Adds/appends text/configuration to existing files. It also helps in changing/reassigning hostnames post bootstraping is done.
 - `Notifier`: Notifies a discord channel with the progress being made.
 
