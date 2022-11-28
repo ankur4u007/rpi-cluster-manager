@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"sync"
 
 	"github.com/ankur4u007/dietpi-image-flasher/infrastructure/modules"
 	"github.com/ankur4u007/dietpi-image-flasher/services"
@@ -9,12 +9,8 @@ import (
 
 func main() {
 	modules.Initialize()
-	err := services.FlashDisk()
-	if err == nil {
-		fmt.Println("Completed!")
-	} else {
-		fmt.Println(err)
-		fmt.Println("Aborted!")
-	}
-
+	services.FlashDisk()
+	var wg sync.WaitGroup
+	services.ApplyCgroupsConfig(&wg)
+	wg.Wait()
 }
