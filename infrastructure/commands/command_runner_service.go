@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"io"
 	"os/exec"
+	"time"
 
 	"github.com/ankur4u007/dietpi-image-flasher/entities/domain"
 	"github.com/rs/zerolog/log"
@@ -32,6 +33,9 @@ func (runner *CommandRunnerService) Run(command string, result chan<- domain.Com
 	log.Debug().
 		Str("command", command).
 		Msg("Command ran successfully")
+
+	// waiting additional 5 seconds for all channles to close safely
+	time.Sleep(5 * time.Second)
 }
 
 func getCommandOutput(command string, pipe io.ReadCloser, result chan<- domain.CommandResult, err error) error {
@@ -52,7 +56,6 @@ func getCommandOutput(command string, pipe io.ReadCloser, result chan<- domain.C
 }
 
 func streamOutput(pipe io.ReadCloser, result chan<- domain.CommandResult) {
-	defer pipe.Close()
 	reader := bufio.NewReader(pipe)
 	line, eof, err := reader.ReadLine()
 	lineString := string(line)
