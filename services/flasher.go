@@ -6,7 +6,17 @@ import (
 	"github.com/ankur4u007/dietpi-image-flasher/usecases"
 )
 
-func FlashDisk() error {
+func FlashDisk() {
+	err := flash()
+	if err == nil {
+		fmt.Println("Flashing completed!")
+	} else {
+		fmt.Println(err)
+		fmt.Println("Flashing aborted!")
+	}
+}
+
+func flash() error {
 	if usecases.ConfirmFlash() == true {
 		err := usecases.ValidateConfigs()
 		if err != nil {
