@@ -1,5 +1,6 @@
 boot:
   flash:
+    enabled: false
     imagePath: /Users/deepankarsingh/Downloads/DietPi_RPi-ARMv8-Bullseye/DietPi_RPi-ARMv8-Bullseye.img
     diskPath: /dev/disk2
     writeBs: 10m
@@ -35,3 +36,6 @@ boot:
     - "AUTO_SETUP_BROWSER_INDEX=0"
     - "AUTO_SETUP_HEADLESS=1"
     - "AUTO_SETUP_SWAPFILE_SIZE=0"
+    - "AUTO_SETUP_SWAPFILE_SIZE=1"
+    - "AUTO_SETUP_SWAPFILE_LOCATION=/var/swap"
+    - "AUTO_UNMASK_LOGIND=0"

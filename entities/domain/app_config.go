@@ -3,6 +3,7 @@ package domain
 var Config AppConfiguration = AppConfiguration{
 	Boot: BootConfiguration{
 		Flash: FlashConfiguration{
+			Enabled:                true,
 			WriteBs:                "10m",
 			TrackIntervalInSeconds: 1,
 			DefaultVolumeName:      "DIETPI",
@@ -33,6 +34,7 @@ type BootConfiguration struct {
 
 // FlashConfiguration exported
 type FlashConfiguration struct {
+	Enabled                bool
 	ImagePath              string
 	DiskPath               string
 	WriteBs                string
