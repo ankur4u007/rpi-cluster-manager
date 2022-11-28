@@ -22,6 +22,8 @@ func append(text string, filePath string) error {
 	defer f.Close()
 	if _, err = f.WriteString(text); err != nil {
 		return err
+	} else {
+		fmt.Printf("Successfully written:%s to file:%s\n", text, filePath)
 	}
 	return nil
 }
