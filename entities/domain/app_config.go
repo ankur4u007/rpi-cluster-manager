@@ -7,7 +7,11 @@ var Config AppConfiguration = AppConfiguration{
 			TrackIntervalInSeconds: 1,
 			DefaultVolumeName:      "DIETPI",
 		},
-		EnableCgroups: true,
+		Cgroups: CgroupsConfiguration{
+			Enabled:    true,
+			ConfigText: "cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory",
+			ConfigFile: "cmdline.txt",
+		},
 	},
 }
 
@@ -19,7 +23,7 @@ type AppConfiguration struct {
 // BootConfiguration exported
 type BootConfiguration struct {
 	Flash                FlashConfiguration
-	EnableCgroups        bool
+	Cgroups              CgroupsConfiguration
 	NodeDetails          NodeDetailsConfiguration
 	Wifi                 WifiConfiguration
 	K3s                  K3sConfiguration
@@ -34,6 +38,13 @@ type FlashConfiguration struct {
 	WriteBs                string
 	TrackIntervalInSeconds int
 	DefaultVolumeName      string
+}
+
+// CgroupsConfiguration exported
+type CgroupsConfiguration struct {
+	Enabled    bool
+	ConfigText string
+	ConfigFile string
 }
 
 // NodeDetailsConfiguration exported

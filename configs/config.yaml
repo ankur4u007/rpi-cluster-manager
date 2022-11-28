@@ -5,7 +5,10 @@ boot:
     writeBs: 10m
     trackIntervalInSeconds: 1
     defaultVolumeName: "DIETPI"
-  enableCgroups: true
+  cgroups:
+    enable: true
+    configText: "cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory"
+    configFile: "cmdline.txt"
   nodeDetails:
     enabled: true
     hostname: dietpihost
