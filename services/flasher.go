@@ -3,21 +3,20 @@ package services
 import (
 	"fmt"
 
+	"github.com/ankur4u007/dietpi-image-flasher/entities/domain"
 	"github.com/ankur4u007/dietpi-image-flasher/usecases"
 )
 
 func FlashDisk() {
 	err := flash()
-	if err == nil {
-		fmt.Println("Flashing completed!")
-	} else {
+	if err != nil {
 		fmt.Println(err)
 		fmt.Println("Flashing aborted!")
 	}
 }
 
 func flash() error {
-	if usecases.ConfirmFlash() == true {
+	if domain.Config.Boot.Flash.Enabled && usecases.ConfirmFlash() {
 		err := usecases.ValidateConfigs()
 		if err != nil {
 			return err

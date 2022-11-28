@@ -1,11 +1,13 @@
 package usecases
 
 import (
+	"bufio"
 	"fmt"
 	"os"
+	"strings"
 )
 
-func AppendFile(text string, filePath string) error {
+func AppendTextIfNotPresent(text string, filePath string) error {
 	err := append(text, filePath)
 	if err != nil {
 		fmt.Printf("Filed to append file:%s\n", filePath)
@@ -15,15 +17,24 @@ func AppendFile(text string, filePath string) error {
 }
 
 func append(text string, filePath string) error {
-	f, err := os.OpenFile(filePath, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	file, err := os.OpenFile(filePath, os.O_RDWR, 0600)
 	if err != nil {
 		return err
 	}
-	defer f.Close()
-	if _, err = f.WriteString(text); err != nil {
-		return err
+	defer file.Close()
+	reader := bufio.NewReader(file)
+	line, _, err := reader.ReadLine()
+	if strings.Contains(string(line), text) {
+		fmt.Printf("Skipped writing:%s to file:%s as it already exists\n", text, filePath)
+
 	} else {
-		fmt.Printf("Successfully written:%s to file:%s\n", text, filePath)
+		appendedText := fmt.Sprintf("%s %s", line, text)
+		if _, err = file.WriteAt([]byte(appendedText), 0); err != nil {
+			return err
+		} else {
+			fmt.Printf("Successfully written:%s to file:%s\n", text, filePath)
+		}
 	}
+
 	return nil
 }

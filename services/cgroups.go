@@ -16,14 +16,14 @@ func ApplyCgroupsConfig(wg *sync.WaitGroup) {
 func doConfig(wg *sync.WaitGroup) {
 	defer wg.Done()
 	if domain.Config.Boot.Cgroups.Enabled {
-		configText := fmt.Sprintf(" %s", domain.Config.Boot.Cgroups.ConfigText)
+		configText := fmt.Sprintf("%s", domain.Config.Boot.Cgroups.ConfigText)
 		filePath := fmt.Sprintf("/Volumes/%s/%s", domain.Config.Boot.Flash.DefaultVolumeName, domain.Config.Boot.Cgroups.ConfigFile)
 		err := usecases.Exists(filePath)
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
-		err = usecases.AppendFile(configText, filePath)
+		err = usecases.AppendTextIfNotPresent(configText, filePath)
 		if err != nil {
 			fmt.Println(err)
 			return
