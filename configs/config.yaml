@@ -1,0 +1,34 @@
+boot:
+  flash:
+    imagePath: /Users/deepankarsingh/Downloads/DietPi_RPi-ARMv8-Bullseye/DietPi_RPi-ARMv8-Bullseye.img
+    diskPath: /dev/disk2
+    writeBs: 10m
+    trackIntervalInSeconds: 1
+    defaultVolumeName: "DIETPI"
+  enableCgroups: true
+  nodeDetails:
+    enabled: true
+    hostname: dietpihost
+    user: dietpi
+    password: dietpi@123
+  wifi:
+    enable: false
+    name: your-wifi-name
+    password: your-wifi-password
+  k3s:
+    enable: true
+    disableStartAsServer: true
+  copyFiles:
+    enable: false
+    paths: 
+      - provide-file-path-here.txt
+  firstBootExecutables:
+    enable: true
+    paths:
+      - provide-executable-file-here.sh
+  defaultConfigs:
+    - "SURVEY_OPTED_IN=0"
+    - "AUTO_SETUP_AUTOMATED=1"
+    - "AUTO_SETUP_BROWSER_INDEX=0"
+    - "AUTO_SETUP_HEADLESS=1"
+    - "AUTO_SETUP_SWAPFILE_SIZE=0"
