@@ -17,6 +17,10 @@ func UpdateDietpiConfig() {
 	for k, v := range wifiDietPiConfig.TxtConfig {
 		configs[k] = v
 	}
+	k3Configs := usecases.ConfigureK3s()
+	for k, v := range k3Configs {
+		configs[k] = v
+	}
 	defaultConfigs := usecases.ConfigureDefaults()
 	for k, v := range defaultConfigs {
 		configs[k] = v

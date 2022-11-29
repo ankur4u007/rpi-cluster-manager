@@ -16,11 +16,11 @@ boot:
     password: dietpi@123
   wifi:
     enabled: true
+
     name: your-wifi-name
     password: your-wifi-password
   k3s:
     enabled: true
-    disableStartAsServer: true
   copyFiles:
     enabled: false
     paths: 

@@ -75,8 +75,7 @@ type WifiConfiguration struct {
 
 // K3sConfiguration exported
 type K3sConfiguration struct {
-	Enabled              bool
-	DisableStartAsServer bool
+	Enabled bool
 }
 
 // CopyFilesConfiguration exported
