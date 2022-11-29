@@ -5,6 +5,7 @@ import (
 	"sync"
 
 	"github.com/ankur4u007/dietpi-image-flasher/entities/domain"
+	"github.com/ankur4u007/dietpi-image-flasher/entities/utilities"
 	"github.com/ankur4u007/dietpi-image-flasher/usecases"
 )
 
@@ -18,7 +19,7 @@ func doConfig(wg *sync.WaitGroup) {
 	if domain.Config.Boot.Cgroups.Enabled {
 		configText := fmt.Sprintf("%s", domain.Config.Boot.Cgroups.ConfigText)
 		filePath := fmt.Sprintf("/Volumes/%s/%s", domain.Config.Boot.Flash.DefaultVolumeName, domain.Config.Boot.Cgroups.ConfigFile)
-		err := usecases.Exists(filePath)
+		err := utilities.Exists(filePath)
 		if err != nil {
 			fmt.Println(err)
 			return
