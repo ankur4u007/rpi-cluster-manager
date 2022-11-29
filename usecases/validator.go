@@ -2,10 +2,10 @@ package usecases
 
 import (
 	"fmt"
-	"os"
 	"strings"
 
 	"github.com/ankur4u007/dietpi-image-flasher/entities/domain"
+	"github.com/ankur4u007/dietpi-image-flasher/entities/utilities"
 )
 
 func ValidateConfigs() error {
@@ -22,19 +22,8 @@ func ValidateConfigs() error {
 	return nil
 }
 
-func Exists(path string) error {
-	_, err := os.Stat(path)
-	if err == nil {
-		return nil
-	}
-	if os.IsNotExist(err) {
-		return fmt.Errorf("Path:%s does not exists", path)
-	}
-	return fmt.Errorf("Path:%s cannot be loaded", path)
-}
-
 func doImageValidation(imagePath string) error {
-	err := Exists(imagePath)
+	err := utilities.Exists(imagePath)
 	if err != nil {
 		return err
 	}
@@ -45,7 +34,7 @@ func doImageValidation(imagePath string) error {
 }
 
 func doDiskValidation(diskPath string) error {
-	err := Exists(diskPath)
+	err := utilities.Exists(diskPath)
 	if err != nil {
 		return err
 	}
