@@ -13,4 +13,5 @@ func main() {
 	var wg sync.WaitGroup
 	services.ApplyCgroupsConfig(&wg)
 	wg.Wait()
+	services.UpdateDietpiConfig()
 }
