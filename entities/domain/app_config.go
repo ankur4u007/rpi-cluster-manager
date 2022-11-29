@@ -13,6 +13,15 @@ var Config AppConfiguration = AppConfiguration{
 			ConfigText: "cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory",
 			ConfigFile: "cmdline.txt",
 		},
+		DefaultDietPiConfigs: []string{
+			"SURVEY_OPTED_IN=0",
+			"AUTO_SETUP_AUTOMATED=1",
+			"AUTO_SETUP_BROWSER_INDEX=0",
+			"AUTO_SETUP_HEADLESS=1",
+			"AUTO_SETUP_SWAPFILE_SIZE=0",
+			"AUTO_SETUP_SWAPFILE_SIZE=1",
+			"AUTO_SETUP_SWAPFILE_LOCATION=/var/swap",
+			"AUTO_UNMASK_LOGIND=0"},
 	},
 }
 
@@ -30,6 +39,7 @@ type BootConfiguration struct {
 	K3s                  K3sConfiguration
 	CopyFiles            CopyFilesConfiguration
 	FirstBootExecutables FirstBootExecutablesConfiguration
+	DefaultDietPiConfigs []string
 }
 
 // FlashConfiguration exported
@@ -53,31 +63,30 @@ type CgroupsConfiguration struct {
 type NodeDetailsConfiguration struct {
 	Enabled  bool
 	Hostname string
-	User     string
 	Password string
 }
 
 // WifiConfiguration exported
 type WifiConfiguration struct {
-	Enable   bool
+	Enabled  bool
 	Name     string
 	Password string
 }
 
 // K3sConfiguration exported
 type K3sConfiguration struct {
-	Enable               bool
+	Enabled              bool
 	DisableStartAsServer bool
 }
 
 // CopyFilesConfiguration exported
 type CopyFilesConfiguration struct {
-	Enable bool
-	Paths  []string
+	Enabled bool
+	Paths   []string
 }
 
 // FirstBootExecutablesConfiguration exported
 type FirstBootExecutablesConfiguration struct {
-	Enable bool
-	Paths  []string
+	Enabled bool
+	Paths   []string
 }
