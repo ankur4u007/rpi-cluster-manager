@@ -8,14 +8,30 @@ import (
 )
 
 func LoadConfig() {
-	viper.SetConfigName("config")
-	viper.SetConfigType("yaml")
-	viper.AddConfigPath(".")
-	viper.AddConfigPath("../configs/")
-	viper.AddConfigPath("./configs/")
+	v := viper.New()
+	v.SetConfigName("config")
+	v.SetConfigType("yaml")
+	v.AddConfigPath("../configs/")
+	err := v.ReadInConfig()
+	v = viper.New()
+	v.SetConfigName("config")
+	v.SetConfigType("yaml")
+	v.AddConfigPath("./configs/")
+	err = v.ReadInConfig()
+	if err == nil {
+		viper.MergeConfigMap(v.AllSettings())
+	}
+	v = viper.New()
+	v.SetConfigName("config")
+	v.SetConfigType("yaml")
+	v.AddConfigPath(".")
+	err = v.ReadInConfig()
+	if err == nil {
+		viper.MergeConfigMap(v.AllSettings())
+	}
 	viper.AutomaticEnv()
-	err := viper.ReadInConfig() // Find and read the config file
-	if err != nil {             // Handle errors reading the config file
+	viper.SetEnvPrefix("DIETPI")
+	if err != nil { // Handle errors reading the config file
 		panic(fmt.Errorf("fatal error config file: %w", err))
 	}
 	err = viper.Unmarshal(&domain.Config)
