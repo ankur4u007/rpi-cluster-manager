@@ -1,8 +1,9 @@
+---
 boot:
   flash:
-    enabled: false
-    imagePath: /Users/deepankarsingh/Downloads/DietPi_RPi-ARMv8-Bullseye/DietPi_RPi-ARMv8-Bullseye.img
-    diskPath: /dev/disk2
+    enabled: true
+    imagePath: <provide/absolute/path/to/dietpi/image/here>
+    diskPath:  <provide/absolute/path/to/disk/here/like/dev/disk2>
     writeBs: 10m
     trackIntervalInSeconds: 1
     defaultVolumeName: "DIETPI"
@@ -10,31 +11,38 @@ boot:
     enabled: true
     configText: "cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory"
     configFile: "cmdline.txt"
-  nodeDetails:
+  node:
     enabled: true
-    hostname: dietpihost
-    password: dietpi@123
+    hostname: <provide-host-name-here>
+    password: <provide-host-password-here>
   wifi:
     enabled: true
-
-    name: your-wifi-name
-    password: your-wifi-password
-  k3s:
+    name: <provide-wifiname-here>
+    password: <provide-wifi-password-here>
+  sshKeys:
     enabled: true
-  copyFiles:
-    enabled: false
-    paths: 
-      - provide-file-path-here.txt
-  firstBootExecutables:
-    enabled: true
-    paths:
-      - provide-executable-file-here.sh
+    publicKeyPath: <provide/absolute/path/to/public/rsa/key>
+    disablePasswordLogins: true
+  ejectWhenDone: false
   defaultDietPiConfigs:
-    - "SURVEY_OPTED_IN=0"
+    ### General configs
+    # - "AUTO_SETUP_HEADLESS=1"
     - "AUTO_SETUP_AUTOMATED=1"
+    - "SURVEY_OPTED_IN=0"
     - "AUTO_SETUP_BROWSER_INDEX=0"
-    - "AUTO_SETUP_HEADLESS=1"
-    - "AUTO_SETUP_SWAPFILE_SIZE=0"
-    - "AUTO_SETUP_SWAPFILE_SIZE=1"
-    - "AUTO_SETUP_SWAPFILE_LOCATION=/var/swap"
-    - "AUTO_UNMASK_LOGIND=0"
+    - "AUTO_SETUP_SSH_SERVER_INDEX=-2"
+    - "AUTO_SETUP_KEYBOARD_LAYOUT=us"
+    - "AUTO_SETUP_TIMEZONE=Asia/Kolkata"
+    #### Network configs
+    - "AUTO_SETUP_NET_WIFI_COUNTRY_CODE=IN"
+    - "AUTO_SETUP_NET_USESTATIC=1"
+    - "AUTO_SETUP_NET_STATIC_IP=192.168.1.101"
+    - "AUTO_SETUP_NET_STATIC_MASK=255.255.255.0"
+    - "AUTO_SETUP_NET_STATIC_GATEWAY=192.168.1.1"
+    - "AUTO_SETUP_NET_STATIC_DNS=9.9.9.9 149.112.112.112"
+    - "CONFIG_G_CHECK_URL_ATTEMPTS=5"
+    ### Softwares
+    ### https://github.com/MichaIng/DietPi/wiki/DietPi-Software-list
+    - "AUTO_SETUP_INSTALL_SOFTWARE_ID=193" ### K3s
+    - "AUTO_SETUP_INSTALL_SOFTWARE_ID=130" ### Python
+    

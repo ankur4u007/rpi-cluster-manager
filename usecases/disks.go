@@ -33,6 +33,15 @@ func UnmountDisk() error {
 	return handleChannelResponse(resultChannel, errMsg)
 }
 
+func EjectDisk() error {
+	resultChannel := make(chan domain.CommandResult)
+	command := fmt.Sprintf("diskutil eject %s", domain.Config.Boot.Flash.DiskPath)
+	fmt.Printf("ejecting disk..%s\n", domain.Config.Boot.Flash.DiskPath)
+	go interfaces.CommandInstance.Run(command, resultChannel)
+	errMsg := fmt.Sprintf("Failed to eject disk:%s, Make sure to stop all disk operations and try again.\n", domain.Config.Boot.Flash.DiskPath)
+	return handleChannelResponse(resultChannel, errMsg)
+}
+
 func FlashAndTrackProgress() error {
 	imageSize, err := getImageSize()
 	if err != nil {

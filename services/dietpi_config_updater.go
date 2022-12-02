@@ -9,8 +9,12 @@ import (
 
 func UpdateDietpiConfig() {
 	configs := make(map[string]bool)
-	wifiDietPiConfig := usecases.ConfigureWifi()
-	for k, v := range wifiDietPiConfig.TxtConfig {
+	nodeConfig := usecases.ConfigureNode()
+	for k, v := range nodeConfig {
+		configs[k] = v
+	}
+	deitpiWifiConfig := usecases.ConfigureWifi()
+	for k, v := range deitpiWifiConfig.TxtConfig {
 		configs[k] = v
 	}
 	sshKeysConfig := usecases.ConfigureSshKeys()
@@ -23,7 +27,7 @@ func UpdateDietpiConfig() {
 	}
 	usecases.ConfigureDietPi(domain.DietpiConfig{
 		TxtConfig:  configs,
-		WifiConfig: wifiDietPiConfig.WifiConfig,
+		WifiConfig: deitpiWifiConfig.WifiConfig,
 	})
 	fmt.Println("Updated dietpi configurations")
 }

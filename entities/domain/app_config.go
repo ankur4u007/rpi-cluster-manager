@@ -19,6 +19,7 @@ var Config AppConfiguration = AppConfiguration{
 			"AUTO_SETUP_BROWSER_INDEX=0",
 			"AUTO_SETUP_SSH_SERVER_INDEX=-2",
 		},
+		EjectWhenDone: true,
 	},
 }
 
@@ -31,9 +32,11 @@ type AppConfiguration struct {
 type BootConfiguration struct {
 	Flash                FlashConfiguration
 	Cgroups              CgroupsConfiguration
+	Node                 NodeConfiguration
 	Wifi                 WifiConfiguration
 	SshKeys              SshKeysConfiguration
 	DefaultDietPiConfigs []string
+	EjectWhenDone        bool
 }
 
 // FlashConfiguration exported
@@ -51,6 +54,13 @@ type CgroupsConfiguration struct {
 	Enabled    bool
 	ConfigText string
 	ConfigFile string
+}
+
+// WifiConfiguration exported
+type NodeConfiguration struct {
+	Enabled  bool
+	Hostname string
+	Password string
 }
 
 // WifiConfiguration exported

@@ -14,4 +14,5 @@ func main() {
 	services.ApplyCgroupsConfig(&wg)
 	wg.Wait()
 	services.UpdateDietpiConfig()
+	services.EjectWhenDone()
 }
