@@ -8,7 +8,7 @@ import (
 )
 
 func AppendTextIfNotPresent(text string, filePath string) error {
-	err := append(text, filePath)
+	err := appendToFile(text, filePath)
 	if err != nil {
 		fmt.Printf("Filed to append file:%s\n", filePath)
 		return err
@@ -16,7 +16,7 @@ func AppendTextIfNotPresent(text string, filePath string) error {
 	return nil
 }
 
-func append(text string, filePath string) error {
+func appendToFile(text string, filePath string) error {
 	file, err := os.OpenFile(filePath, os.O_RDWR, 0600)
 	if err != nil {
 		return err

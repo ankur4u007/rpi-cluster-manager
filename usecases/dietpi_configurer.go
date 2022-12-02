@@ -22,17 +22,44 @@ func updateConfig(fileName string, config map[string]bool) error {
 		if err != nil {
 			return err
 		}
-		lines := strings.Split(string(input), "\n")
-		for i, line := range lines {
-			for key := range config {
-				configKey := strings.Split(key, "=")
-				if strings.Contains(line, configKey[0]) && !strings.Contains(line, " ") {
-					lines[i] = key
-				}
-			}
+		multiKeyMaps := make(map[string][]string)
+		for key := range config {
+			configArrPair := strings.Split(key, "=")
+			configKey := configArrPair[0]
+			configValue := configArrPair[1]
+			multiKeyMaps[configKey] = append(multiKeyMaps[configKey], configValue)
 		}
-		output := strings.Join(lines, "\n")
-		err = ioutil.WriteFile(filePath, []byte(output), 0644)
+		modifiedLines := []string{}
+		existingConfigs := map[string]bool{}
+		lines := strings.Split(string(input), "\n")
+		for _, line := range lines {
+			lineKeyArr := strings.Split(line, "=")
+			regularKey := lineKeyArr[0]
+			commentedKey := strings.TrimPrefix(regularKey, "#")
+			var key string
+			var valuesArr []string
+			if multiKeyMaps[regularKey] != nil {
+				key = regularKey
+				valuesArr = multiKeyMaps[regularKey]
+			} else if multiKeyMaps[commentedKey] != nil {
+				key = commentedKey
+				valuesArr = multiKeyMaps[commentedKey]
+			}
+			if valuesArr != nil {
+				for _, value := range valuesArr {
+					newLine := fmt.Sprintf("%s=%s", key, value)
+					if existingConfigs[newLine] == false {
+						modifiedLines = append(modifiedLines, newLine)
+						existingConfigs[newLine] = true
+					}
+				}
+				continue
+			}
+			modifiedLines = append(modifiedLines, line)
+			existingConfigs[line] = true
+		}
+		output := strings.Join(modifiedLines, "\n")
+		err = ioutil.WriteFile(filePath, []byte(output), 0777)
 		if err != nil {
 			return err
 		}
