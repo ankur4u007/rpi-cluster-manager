@@ -17,10 +17,8 @@ var Config AppConfiguration = AppConfiguration{
 			"SURVEY_OPTED_IN=0",
 			"AUTO_SETUP_AUTOMATED=1",
 			"AUTO_SETUP_BROWSER_INDEX=0",
-			"AUTO_SETUP_HEADLESS=1",
-			"AUTO_SETUP_SWAPFILE_SIZE=1",
-			"AUTO_SETUP_SWAPFILE_LOCATION=/var/swap",
-			"AUTO_UNMASK_LOGIND=0"},
+			"AUTO_SETUP_SSH_SERVER_INDEX=-2",
+		},
 	},
 }
 
@@ -33,11 +31,8 @@ type AppConfiguration struct {
 type BootConfiguration struct {
 	Flash                FlashConfiguration
 	Cgroups              CgroupsConfiguration
-	NodeDetails          NodeDetailsConfiguration
 	Wifi                 WifiConfiguration
-	K3s                  K3sConfiguration
-	CopyFiles            CopyFilesConfiguration
-	FirstBootExecutables FirstBootExecutablesConfiguration
+	SshKeys              SshKeysConfiguration
 	DefaultDietPiConfigs []string
 }
 
@@ -58,13 +53,6 @@ type CgroupsConfiguration struct {
 	ConfigFile string
 }
 
-// NodeDetailsConfiguration exported
-type NodeDetailsConfiguration struct {
-	Enabled  bool
-	Hostname string
-	Password string
-}
-
 // WifiConfiguration exported
 type WifiConfiguration struct {
 	Enabled  bool
@@ -72,19 +60,9 @@ type WifiConfiguration struct {
 	Password string
 }
 
-// K3sConfiguration exported
-type K3sConfiguration struct {
-	Enabled bool
-}
-
-// CopyFilesConfiguration exported
-type CopyFilesConfiguration struct {
-	Enabled bool
-	Paths   []string
-}
-
-// FirstBootExecutablesConfiguration exported
-type FirstBootExecutablesConfiguration struct {
-	Enabled bool
-	Paths   []string
+// SshKeysConfiguration exported
+type SshKeysConfiguration struct {
+	Enabled               bool
+	PublicKeyPath         string
+	DisablePasswordLogins bool
 }
