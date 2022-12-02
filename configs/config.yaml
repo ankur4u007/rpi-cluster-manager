@@ -23,7 +23,7 @@ boot:
     enabled: true
     publicKeyPath: <provide/absolute/path/to/public/rsa/key>
     disablePasswordLogins: true
-  ejectWhenDone: false
+  ejectWhenDone: true
   defaultDietPiConfigs:
     ### General configs
     # - "AUTO_SETUP_HEADLESS=1"
